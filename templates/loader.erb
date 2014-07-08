@@ -1,0 +1,17 @@
+[loader]
+# The messages directory.  The loader takes messages from <msgpath>/incoming.
+msgpath = <%= @msgpath %>
+
+# Location of the pidfile
+pidfile = /var/run/apel/loader.pid
+
+# How often (in seconds) the loader will check for new messages.
+interval = <%= @interval %>
+
+# If true, saves accepted messages in the 'messages/accept' directory.  If false, deletes them.
+save_messages = <%if @save_messages %>true<% else %>false<% end %>
+
+[logging]
+logfile = /var/log/apel/loader.log
+level = <%= @log_level %>
+console = true
