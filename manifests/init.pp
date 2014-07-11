@@ -15,7 +15,8 @@ class apeldbloader(
   
   #loader params
   $msgpath = '/var/spool/apel',
-  $interval = 5,
+  $arc_car_recordsdir = '/var/run/arc/urs',
+  $interval = 60,
   $save_messages = true,
   $log_level = 'INFO',
   $loader_template = 'apeldbloader/loader.erb'
@@ -36,12 +37,20 @@ class apeldbloader(
     db_template => $db_template 
   }
   
+  #dbloader hacking directories.
+  #we use the loader, and provide it directly with its data structure :
+  file {
+    "$msgpath": ensure=>directory, owner=>root, group=>root;
+    "$msgpath/incoming": ensure=>link, target => $arc_car_recordsdir, owner=>root, group=>root;
+  }
+  
   #dbloader config
   file {'/etc/apel/loader.cfg':
     mode => 644,
     owner =>root,
     content => template($loader_template),
     require => Package['apel-server'],
+    notify => Service[apeldbloader]
   }
   
   
