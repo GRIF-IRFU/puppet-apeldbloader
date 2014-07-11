@@ -108,7 +108,7 @@ try:
             tarball.add(filename) #add file to archive
             os.remove(filename)   #remove CAR file that was just archived, so that it's not added again in the dirq next time we run
           else:
-            logging.warnging("file " + filename + " already in archive " + tarfileN + " : something might be going wrong. Moving it in archives/failed")
+            logging.warning("file " + filename + " already in archive " + tarfileN + " : something might be going wrong. Moving it in archives/failed")
             shutil.move(filename,failures)
           #mark record as processed
           processed+=1
