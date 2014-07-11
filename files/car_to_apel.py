@@ -110,6 +110,10 @@ try:
           else:
             logging.warning("file " + filename + " already in archive " + tarfileN + " : something might be going wrong. Moving it in archives/failed")
             shutil.move(filename,failures)
+            try:
+                shutil.move(filename,failures)
+            except shutil.Error as why:
+                logging.error("error while moving " + filename + " : " + str(why))
           #mark record as processed
           processed+=1
 finally:
