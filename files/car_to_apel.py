@@ -109,7 +109,6 @@ try:
             os.remove(filename)   #remove CAR file that was just archived, so that it's not added again in the dirq next time we run
           else:
             logging.warning("file " + filename + " already in archive " + tarfileN + " : something might be going wrong. Moving it in archives/failed")
-            shutil.move(filename,failures)
             try:
                 shutil.move(filename,failures)
             except shutil.Error as why:
