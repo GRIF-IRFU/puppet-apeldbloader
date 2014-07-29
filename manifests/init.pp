@@ -41,6 +41,7 @@ class apeldbloader(
   #we use the loader, and provide it directly with its data structure :
   file {
     "$msgpath": ensure=>directory, owner=>root, group=>root;
+    "$arc_car_recordsdir": ensure=>directory, owner=>root, group=>root;
     "$msgpath/incoming": ensure=>link, target => $arc_car_recordsdir, owner=>root, group=>root;
   }
   
