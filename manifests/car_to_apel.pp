@@ -11,7 +11,7 @@
  * 
  */
 class apeldbloader::car_to_apel(
-  $run_interval = 1, #time interval in minutes
+  $run_interval = 30, #time interval in minutes
 ){
   $prog='car_to_apel.py'
   
