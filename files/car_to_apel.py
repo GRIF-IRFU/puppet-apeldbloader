@@ -124,7 +124,7 @@ finally:
     numrecords=len(tarball.getnames());
     tarball.close()
     os.chdir(previousDir)
-    print "processed " + processed + "records."
+    print "processed %d records." % processed
     logging.debug("number of tarball members : " + str(numrecords))
     if numrecords==0 and processed==0:
         logging.info('did not process any record, and tarball is empty : removing it to avoid a python bug.')
