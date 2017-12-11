@@ -10,12 +10,12 @@ class apeldbloader::db(
 ) {
   
   #configure the DB part
-  Package ['apel-server']
+  Package['apel-server']
   ->
   file {'/etc/apel/db.cfg':
     owner=>root,
     group=>root,
-    mode => 640,
+    mode => '0640',
     content=>template($db_template)
   }
 

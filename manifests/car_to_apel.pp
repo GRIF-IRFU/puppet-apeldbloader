@@ -12,6 +12,7 @@
  */
 class apeldbloader::car_to_apel(
   $run_interval = 30, #time interval in minutes
+  $arc_jobctrl_dir='/var/spool/arc/jobstatus',
 ){
   $prog='car_to_apel.py'
   
@@ -19,7 +20,7 @@ class apeldbloader::car_to_apel(
   ->
   file { $prog:
     path=> "/usr/local/sbin/${prog}",
-    mode => 755,
+    mode => '0755',
     owner => root,
     source => 'puppet:///modules/apeldbloader/car_to_apel.py',
   }
@@ -31,4 +32,20 @@ class apeldbloader::car_to_apel(
     minute  => "*/${run_interval}",
     require => File[$prog],
   }
+  
+  #make sure we clean up jura/ARC job log files !
+  #le "save_messages"=false n'est pas suffisant : le fichiers d'accounting s'empilent toujours au fur et à mesure.
+#  cron { arc_jura_cleanup:
+#    command => "find ${$arc_jobctrl_dir}/logs -maxdepth 1 -mtime +3 |xargs rm -f",
+#    user    => root,
+#    hour    => 01,
+#    minute  => 30,
+#  }
+#  #ce qui suit semble etre ce qui genere les logs ci dessus.
+#  cron { arc_jura_jobfiles_cleanup:
+#    command => "find ${$arc_jobctrl_dir} -maxdepth 1 -name 'job*' -mtime +3 |xargs rm -f",
+#    user    => root,
+#    hour    => 01,
+#    minute  => 30,
+#  }
 }
